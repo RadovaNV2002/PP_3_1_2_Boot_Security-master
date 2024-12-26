@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<nav th:replace="main :: navigation" />
+
+<div class="container pt-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-auto">
+            <div class="jumbotron">
+                <table style="border: 1px solid grey;
+              width: 600px"
+                       th:each="user : ${users}">
+                    <tr>
+                        <td style="width: 84px" th:text="${user.getFirstName()}"> Name </td>
+                        <td style="width: 84px" th:text="${user.getLastName()}"> Lastname </td>
+                        <td style="width: 84px" th:text="${user.getEmail()}"> Email </td>
+                        <td style="width: 84px" th:text="${user.getPassword()}"> Password </td>
+                        <td style="width: 84px" th:text="${user.getRoleSet()}"> Role </td>
+                        <td style="width: 84px">
+                            <form th:method="EDIT" th:href="@{/admin/{id}/edit(id=${user.id})}">
+                                <input type="submit" value="Edit"/>
+                            </form>
+                            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                                <input type="submit" value="Delete"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <hr/>
+                <a href="/user-form">Create new user</a>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
